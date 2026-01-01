@@ -1,3 +1,12 @@
+-- Purpose: Normalize sales team compensation costs for GTM analysis
+-- Grain: Month
+-- Notes:
+-- - Separates inbound and outbound sales team costs
+-- - Normalizes currency formatting to numeric USD values
+-- - Enables allocation of GTM costs across funnel stages
+-- - Standardizes month to DATE (YYYY-MM-01)
+
+
 create or replace table DEMO_DB.DE_CASE_NICKFOX_SCHEMA.STG_LEADS as
 select
   lead_id,
