@@ -61,6 +61,26 @@ The table is explicitly designed to surface **sales efficiency bottlenecks befor
 
 ---
 
+#### mart_gtm_payback_lens_monthly.sql
+
+This model is a lightweight **decision guardrail layer** derived from the GTM unit economics SSOT.
+Its purpose is not to recommend a CAC target, but to define **clear payback ceilings** that protect
+unit economics as GTM spend scales.
+
+It answers a practical leadership question:
+> “At current efficiency, are we inside our payback thresholds — and if not, how far outside the guardrail are we?”
+
+For each month, the lens evaluates performance against two common payback guardrails (3-month and 6-month) and outputs:
+- **CAC payback ceiling** — the maximum CAC allowed to remain within the payback window (guardrail, not a goal)
+- **CAC headroom** — how far inside or outside the guardrail current performance sits  
+  (positive = capacity to scale spend; negative = efficiency constraint)
+- A **within_payback_guardrail** flag for quick scanning
+
+This framing allows GTM leadership to distinguish between periods where spend can safely scale
+and periods where execution improvements are required before additional investment.
+
+---
+
 ## Data Quality & Validation
 
 Lightweight SQL-based validation tests are included in `sql/tests/` to ensure data integrity
@@ -126,11 +146,13 @@ Potential next steps include:
 - Splitting CAC by inbound vs outbound motion
 - Cohort-based payback analysis by signup month
 - Attribution of efficiency metrics by rep, channel, or segment
+- Exposing payback guardrails via Sigma input controls or a Snowflake Notebook for interactive scenario modeling
 
 ---
 
 ## Summary
 
 This data product provides a clear, scalable foundation for understanding GTM efficiency at
-Owner.com. More importantly, it surfaces **actionable execution constraints**, enabling
-leadership to focus on improvements that drive sustainable, capital-efficient growth.
+Owner.com. In addition to describing what is happening, the payback guardrail lens translates
+unit economics into clear **go / no-go signals** that help leadership decide *when* to scale spend
+versus *when* to focus on execution improvements.
